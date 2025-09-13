@@ -7,7 +7,7 @@ import {
     DeleteCommand,
 } from "@aws-sdk/lib-dynamodb";
 
-const tableName = "cmpe-272_assn-w03_student-record";
+const tableName = process.env.TABLE_NAME || "cmpe-272_assn-w03_student-record";
 
 const client = new DynamoDBClient();
 const docClient = DynamoDBDocumentClient.from(client);

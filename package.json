@@ -2,7 +2,7 @@
   "name": "assn-w03-seth",
   "version": "1.0.0",
   "description": "Basic AWS Lambda function with DynamoDB",
-  "main": "src/index.ts",
+  "main": "index.mjs",
   "type": "module",
   "scripts": {
     "dev:aws": "AWS_PROFILE=seth.mccarthy sam local start-api --port 3001"
