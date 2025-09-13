@@ -1,21 +1,18 @@
 {
-  "name": "cmpe272-assn-w03-seth",
+  "name": "assn-w03-seth",
   "version": "1.0.0",
   "description": "Basic AWS Lambda function with DynamoDB",
-  "main": "index.mjs",
+  "main": "lambda/index.mjs",
   "type": "module",
   "scripts": {
+    "local": "sam local start-api --port 3001",
+    "local:function": "sam local invoke LambdaFunction",
+    "build": "sam build",
+    "deploy": "sam deploy --guided"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.431.0",
-    "@aws-sdk/lib-dynamodb": "^3.431.0",
-    "express": "^4.18.2"
+    "@aws-sdk/lib-dynamodb": "^3.431.0"
   },
-  "keywords": [
-    "aws",
-    "lambda",
-    "dynamodb"
-  ],
-  "author": "Seth McCarthy",
-  "license": "MIT"
+  "author": "Seth McCarthy"
 }
