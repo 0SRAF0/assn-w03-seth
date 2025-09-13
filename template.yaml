@@ -7,7 +7,7 @@ Resources:
   LambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: lambda/
+      CodeUri: src/
       Handler: index.handler
       Runtime: nodejs22.x
       Architectures:
@@ -33,7 +33,7 @@ Resources:
   StudentRecordTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: student-records
+      TableName: cmpe-272_assn-w03_student-record
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S

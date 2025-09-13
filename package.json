@@ -2,14 +2,15 @@
   "name": "assn-w03-seth",
   "version": "1.0.0",
   "description": "Basic AWS Lambda function with DynamoDB",
-  "main": "lambda/index.mjs",
+  "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "dev:aws": "AWS_PROFILE=seth-mccarthy_IAM sam local start-api --port 3001"
+    "dev:aws": "AWS_PROFILE=seth.mccarthy sam local start-api --port 3001"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.431.0",
-    "@aws-sdk/lib-dynamodb": "^3.431.0"
+    "@aws-sdk/lib-dynamodb": "^3.431.0",
+    "aws-lambda": "^1.0.7"
   },
   "author": "Seth McCarthy"
 }
