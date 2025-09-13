@@ -1,0 +1,21 @@
+{
+  "name": "cmpe272-assn-w03-seth",
+  "version": "1.0.0",
+  "description": "Basic AWS Lambda function with DynamoDB",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.431.0",
+    "@aws-sdk/lib-dynamodb": "^3.431.0",
+    "express": "^4.18.2"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "dynamodb"
+  ],
+  "author": "Seth McCarthy",
+  "license": "MIT"
+}
