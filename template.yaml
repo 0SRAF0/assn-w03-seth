@@ -9,9 +9,15 @@ Resources:
     Properties:
       CodeUri: lambda/
       Handler: index.handler
-      Runtime: nodejs18.x
+      Runtime: nodejs22.x
       Architectures:
         - x86_64
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref StudentRecordTable
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref StudentRecordTable
       Events:
         StudentRecordApi:
           Type: Api
@@ -24,10 +30,22 @@ Resources:
             Path: /{proxy+}
             Method: ANY
 
+  StudentRecordTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: student-records
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
 Outputs:
   StudentRecordApi:
     Description: "API Gateway endpoint URL"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
   StudentRecordFunction:
     Description: "Student Record Lambda Function ARN"
-    Value: !GetAtt StudentRecordFunction.Arn
+    Value: !GetAtt LambdaFunction.Arn

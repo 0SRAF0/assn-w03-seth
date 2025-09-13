@@ -5,10 +5,8 @@
   "main": "lambda/index.mjs",
   "type": "module",
   "scripts": {
-    "local": "sam local start-api --port 3001",
-    "local:function": "sam local invoke LambdaFunction",
-    "build": "sam build",
-    "deploy": "sam deploy --guided"
+    "dev": "npm run db:start && sleep 3 && npm run db:create-table && npm run local",
+    "dev:aws": "AWS_PROFILE=seth-mccarthy_IAM sam local start-api --port 3001"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.431.0",
