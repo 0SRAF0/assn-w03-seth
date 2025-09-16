@@ -7,9 +7,10 @@ Resources:
   LambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: /
+      CodeUri: .
       Handler: index.handler
-      Runtime: nodejs22.x
+      Runtime: nodejs20.x
+      Timeout: 10
       Architectures:
         - x86_64
       Policies:
@@ -29,6 +30,17 @@ Resources:
           Properties:
             Path: /{proxy+}
             Method: ANY
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        EntryPoints:
+          - index.mjs
+        Minify: true
+        Target: node20
+        Sourcemap: true
+        External:
+          - '@aws-sdk/*'
+        Format: cjs
 
   StudentRecordTable:
     Type: AWS::DynamoDB::Table
