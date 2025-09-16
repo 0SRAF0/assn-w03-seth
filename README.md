@@ -1,3 +1,59 @@
+# How to Run Project
+
+## Local Development
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Build the project:**
+   ```bash
+   sam build
+   ```
+
+3. **Start local API server:**
+   ```bash
+   npm run dev:aws
+   # or
+   sam local start-api --port 3001
+   ```
+
+4. **Test the API:**
+   ```bash
+   curl "http://127.0.0.1:3001/?id=1"
+   ```
+
+> **Note:** Local development will show DynamoDB errors since the table doesn't exist locally. This is expected behavior.
+
+# How to Deploy
+
+## Manual Deploy
+
+1. **Build the deployment package:**
+   ```bash
+   sam build
+   cd .aws-sam/build/LambdaFunction
+   zip -r ../../../lambda-deployment.zip .
+   cd ../../..
+   ```
+
+2. **Upload to AWS Lambda:**
+   - Navigate to AWS Lambda Console
+   - Select your function (or create a new one)
+   - Go to "Code" tab
+   - Click "Upload from" → ".zip file"
+   - Select the `lambda-deployment.zip` file
+   - Click "Save"
+
+> **Important:** The deployment package contains the compiled JavaScript code from your TypeScript source. Always run `sam build` before creating the zip to ensure you have the latest changes.
+
+## Deploy with Command
+
+*Coming soon - automated deployment using SAM CLI*
+
+---
+
 # Screenshots
 
 This section proves the API works end-to-end with DynamoDB.
@@ -97,7 +153,7 @@ Update the name of course from `CMPE 273` to `CMPE 202`.
 }
 ```
 
-### 2.4 DELETE /student-record?id=001 — delete
+### 2.4 `DELETE` /student-record?id=001 — delete
 
 ![DELETE success](https://i.imghippo.com/files/qXJQ7716uQ.png)
 
