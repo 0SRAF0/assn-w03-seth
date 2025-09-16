@@ -34,7 +34,7 @@ Resources:
       BuildMethod: esbuild
       BuildProperties:
         EntryPoints:
-          - index.mjs
+          - src/index.ts
         Minify: true
         Target: node20
         Sourcemap: true
