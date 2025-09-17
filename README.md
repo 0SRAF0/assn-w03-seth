@@ -1,4 +1,4 @@
-# How to Run Project
+# Setup and Installation
 
 ## Local Development
 
@@ -26,9 +26,9 @@
 
 > **Note:** Local development will show DynamoDB errors since the table doesn't exist locally. This is expected behavior.
 
-# How to Deploy
+## Production Deployment
 
-## Manual Deploy
+### Manual Deploy
 
 1. **Build the deployment package:**
    ```bash
@@ -39,16 +39,16 @@
    ```
 
 2. **Upload to AWS Lambda:**
-   - Navigate to AWS Lambda Console
-   - Select your function (or create a new one)
-   - Go to "Code" tab
-   - Click "Upload from" → ".zip file"
-   - Select the `lambda-deployment.zip` file
-   - Click "Save"
+    - Navigate to AWS Lambda Console
+    - Select your function (or create a new one)
+    - Go to "Code" tab
+    - Click "Upload from" → ".zip file"
+    - Select the `lambda-deployment.zip` file
+    - Click "Save"
 
 > **Important:** The deployment package contains the compiled JavaScript code from your TypeScript source. Always run `sam build` before creating the zip to ensure you have the latest changes.
 
-## Deploy with Command
+### Deploy with Command
 
 *Coming soon - automated deployment using SAM CLI*
 
@@ -170,3 +170,24 @@ Update the name of course from `CMPE 273` to `CMPE 202`.
   "message": "Student record deleted successfully"
 }
 ```
+
+---
+
+# Reflection
+
+Working with AWS Lambda, API Gateway, and DynamoDB reminded me that “serverless” still demands serious engineering. My biggest gains came from understanding why things failed, not just how to patch them.
+
+## API Gateway
+
+My Lambda was kept returning 400 with “Invalid request type” because I created the method without _Lambda proxy integration_.
+My handler expected the proxy event shape (httpMethod, path, body), but API Gateway was sending a different payload, so my switch fell into the default case. Enabling Lambda proxy integration when creating the method and redeploying fixed it. Lesson learned: pick the integration model up front and
+keep the handler and event mapping in sync. I now log event.requestContext, test with curl, and either use proxy with no VTL templates or non-proxy with explicit templates, never a mixed setup.
+
+## Lambda packaging
+
+I was spending a while in dealing “Cannot find module ‘index’” error. Turns out it was a packaging mistake. I was zipping the project, not the deployable artifacts with the correct handler path. I learned to build, zip from the build output, and confirm the handler entry point before shipping. I
+also added a pre-deploy checklist.
+
+## Custom domain
+
+Wiring a personal domain forced me to understand ACM validation, Route 53 records, and propagation timing. The lesson was ownership of the whole path from DNS to stage. Next time I will script this with IaC so the setup is reproducible.
