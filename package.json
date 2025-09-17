@@ -12,5 +12,8 @@
     "@aws-sdk/lib-dynamodb": "^3.431.0",
     "aws-lambda": "^1.0.7"
   },
-  "author": "Seth McCarthy"
+  "author": "Seth McCarthy",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.152"
+  }
 }
